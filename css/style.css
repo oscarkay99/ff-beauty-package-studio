@@ -785,9 +785,6 @@ a:focus-visible, button:focus-visible{
 }
 .js .reveal-up.is-in{ opacity:1; transform:none; }
 
-/* ---------- magnetic buttons ---------- */
-.magnetic{ will-change: transform; }
-
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce){
   .marquee-track{ animation: none; }
