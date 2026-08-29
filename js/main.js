@@ -268,11 +268,112 @@
     try { alreadyAccepted = localStorage.getItem(CONSENT_KEY) === 'yes'; } catch (e) {}
 
     if (!alreadyAccepted) {
-      setTimeout(() => cookieBanner.classList.add('is-visible'), 700);
+      setTimeout(() => {
+        cookieBanner.classList.add('is-visible');
+        document.body.classList.add('cookie-open');
+      }, 700);
     }
     cookieAccept.addEventListener('click', () => {
       try { localStorage.setItem(CONSENT_KEY, 'yes'); } catch (e) {}
       cookieBanner.classList.remove('is-visible');
+      document.body.classList.remove('cookie-open');
+    });
+  }
+
+  /* ---------------- Chat assistant widget (rule-based quick answers) ----------------
+     No backend exists on this static site, so this intentionally does not claim
+     to be an AI chatbot. It matches keywords against real site content and always
+     offers the phone/WhatsApp for anything it can't answer. */
+  const chatLauncher = document.getElementById('chatLauncher');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatQuickReplies = document.getElementById('chatQuickReplies');
+
+  if (chatLauncher && chatPanel && chatMessages && chatForm && chatInput && chatQuickReplies) {
+    const PHONE = '614-432-6449';
+    const TOPICS = [
+      {
+        label: 'Services & Pricing',
+        match: /service|price|cost|offer|menu/i,
+        reply: `We offer a full range of beauty services (makeup, lashes, brows, hair extensions, color, braids, and more) plus locs & natural hair specialties (Sisterlocks, starter locs, retwist, silk press). Pricing depends on your hair and the service, quoted at consultation. See the full list in Services, or call ${PHONE}.`,
+      },
+      {
+        label: 'Hours',
+        match: /hour|open|time|when/i,
+        reply: `Tuesday through Saturday, with Sunday and Monday available by appointment. Call ${PHONE} to check availability.`,
+      },
+      {
+        label: 'Location',
+        match: /location|address|where|columbus/i,
+        reply: `The studio is based in Columbus, Ohio. Call ${PHONE} for the exact address.`,
+      },
+      {
+        label: 'How Booking Works',
+        match: /book|appointment|schedule|reserve/i,
+        reply: `Appointments are booked by phone, call or text ${PHONE} to share what you're after and find a time.`,
+      },
+      {
+        label: 'Traditional Wedding Package',
+        match: /traditional|wedding|ceremony|kente|package/i,
+        reply: `For traditional weddings and ceremonies, hair, makeup, and traditional dress styling arrive as one seamless appointment, on-location and out-of-town appointments available. Call ${PHONE} to discuss your ceremony.`,
+      },
+      {
+        label: 'Sisterlocks',
+        match: /sisterlock|\bloc(s)?\b|dread/i,
+        reply: `Yes, Sisterlocks installs, retwists, starter locs, and loc detox are all part of the Locs & Natural Hair Specialist services. Call ${PHONE} for a consultation.`,
+      },
+    ];
+    const GREETING = "Hi! I'm here to help with quick questions about FF Beauty Package Studio. Ask about services, hours, location, or booking, or tap a topic below.";
+    const FALLBACK = `I'm just a quick-answers assistant, so I might not catch everything. For anything specific, call or WhatsApp us at ${PHONE} and we'll take great care of you.`;
+
+    let isOpen = false;
+
+    const addMessage = (text, from) => {
+      const el = document.createElement('div');
+      el.className = `chat-msg chat-msg--${from}`;
+      el.textContent = text;
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    const renderQuickReplies = () => {
+      chatQuickReplies.innerHTML = '';
+      TOPICS.forEach((topic) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chat-chip';
+        btn.textContent = topic.label;
+        btn.addEventListener('click', () => respondTo(topic.label, topic));
+        chatQuickReplies.appendChild(btn);
+      });
+    };
+
+    const respondTo = (text, matchedTopic) => {
+      addMessage(text, 'user');
+      const topic = matchedTopic || TOPICS.find((t) => t.match.test(text));
+      setTimeout(() => addMessage(topic ? topic.reply : FALLBACK, 'bot'), 350);
+    };
+
+    chatLauncher.addEventListener('click', () => {
+      isOpen = !isOpen;
+      chatPanel.classList.toggle('is-open', isOpen);
+      chatLauncher.setAttribute('aria-expanded', String(isOpen));
+      chatPanel.setAttribute('aria-hidden', String(!isOpen));
+      if (isOpen && !chatMessages.childElementCount) {
+        addMessage(GREETING, 'bot');
+        renderQuickReplies();
+      }
+      if (isOpen) chatInput.focus();
+    });
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = chatInput.value.trim();
+      if (!val) return;
+      respondTo(val);
+      chatInput.value = '';
     });
   }
 

@@ -823,6 +823,144 @@ a:focus-visible, button:focus-visible{
 }
 
 /* ==========================================================================
+   WHATSAPP CLICK-TO-CHAT
+   ========================================================================== */
+.whatsapp-fab{
+  position: fixed; right:20px; bottom:20px;
+  z-index: 250;
+  width:56px; height:56px; border-radius:50%;
+  background: #25D366;
+  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: bottom .4s var(--ease), transform .2s var(--ease);
+}
+.whatsapp-fab:hover{ transform: translateY(-2px); }
+body.cookie-open .whatsapp-fab{ bottom:112px; }
+
+/* ==========================================================================
+   CHAT ASSISTANT WIDGET
+   ========================================================================== */
+.chat-widget{
+  position: fixed; right:20px; bottom:90px;
+  z-index: 250;
+  display:flex; flex-direction:column; align-items:flex-end;
+  transition: bottom .4s var(--ease);
+}
+body.cookie-open .chat-widget{ bottom:182px; }
+
+.chat-launcher{
+  width:56px; height:56px; border-radius:50%;
+  background: var(--gold);
+  color: var(--black);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform .2s var(--ease), background .2s;
+  position:relative; z-index:1;
+}
+.chat-launcher:hover{ transform: translateY(-2px); background: var(--gold-light); }
+.chat-launcher-icon--close{ display:none; }
+.chat-launcher[aria-expanded="true"] .chat-launcher-icon--open{ display:none; }
+.chat-launcher[aria-expanded="true"] .chat-launcher-icon--close{ display:block; }
+
+.chat-panel{
+  position:absolute; right:0; bottom:70px;
+  width: min(340px, calc(100vw - 40px));
+  max-height: min(480px, calc(100vh - 180px));
+  display:flex; flex-direction:column;
+  background: var(--black-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+  overflow:hidden;
+  opacity:0; visibility:hidden; transform: translateY(12px) scale(0.98);
+  transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
+  transform-origin: bottom right;
+}
+.chat-panel.is-open{ opacity:1; visibility:visible; transform:none; }
+
+.chat-panel-header{
+  display:flex; align-items:center; gap:0.7rem;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+.chat-avatar{ border-radius:50%; flex-shrink:0; }
+.chat-title{ font-family: var(--serif); font-size:0.95rem; color: var(--ivory); }
+.chat-status{ font-size:0.72rem; color: var(--muted); display:flex; align-items:center; gap:5px; }
+.chat-status-dot{ width:6px; height:6px; border-radius:50%; background:#3ecf5f; display:inline-block; }
+
+.chat-messages{
+  flex:1; overflow-y:auto;
+  padding: 1rem 1.1rem;
+  display:flex; flex-direction:column; gap:0.6rem;
+  min-height: 160px;
+}
+.chat-msg{
+  max-width: 84%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 12px;
+  font-size:0.85rem; line-height:1.5;
+}
+.chat-msg--bot{
+  align-self:flex-start;
+  background: rgba(201,162,39,0.08);
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  border-bottom-left-radius:3px;
+}
+.chat-msg--user{
+  align-self:flex-end;
+  background: var(--gold);
+  color: var(--black);
+  border-bottom-right-radius:3px;
+}
+.chat-quick-replies{
+  display:flex; flex-wrap:wrap; gap:0.5rem;
+  padding: 0 1.1rem 0.9rem;
+}
+.chat-chip{
+  border: 1px solid var(--line);
+  border-radius:999px;
+  padding: 0.4rem 0.8rem;
+  font-size:0.74rem; color: var(--gold-light);
+  transition: border-color .2s, background .2s;
+}
+.chat-chip:hover{ border-color: var(--gold); background: rgba(201,162,39,0.08); }
+.chat-input-row{
+  display:flex; gap:0.5rem;
+  padding: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+.chat-input-row input{
+  flex:1; min-width:0;
+  background: var(--black);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.6rem 0.9rem;
+  color: var(--ivory);
+  font-family: var(--sans); font-size:0.85rem;
+}
+.chat-input-row input:focus-visible{ outline:1.5px solid var(--gold-light); outline-offset:1px; }
+.chat-input-row button{
+  width:38px; height:38px; border-radius:50%; flex-shrink:0;
+  background: var(--gold);
+  color: var(--black);
+  display:flex; align-items:center; justify-content:center;
+  transition: background .2s;
+}
+.chat-input-row button:hover{ background: var(--gold-light); }
+
+@media (max-width: 480px){
+  .whatsapp-fab{ right:14px; bottom:14px; }
+  .chat-widget{ right:14px; bottom:82px; }
+  body.cookie-open .whatsapp-fab{ bottom: 168px; }
+  body.cookie-open .chat-widget{ bottom: 238px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .whatsapp-fab, .chat-widget, .chat-panel{ transition:none; }
+}
+
+/* ==========================================================================
    SCROLL REVEALS (generic), scoped to .js per the safety-net note above
    ========================================================================== */
 .js .reveal-up{
