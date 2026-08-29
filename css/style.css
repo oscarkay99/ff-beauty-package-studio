@@ -19,6 +19,23 @@
   --serif: 'Playfair Display', 'Georgia', serif;
   --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
   --container: 1240px;
+
+  /* type scale: a fixed set of sizes instead of one-off values per element */
+  --fs-2xs: 0.72rem;   /* kicker/eyebrow tags, small caption labels */
+  --fs-xs: 0.78rem;    /* fine print: footer meta, review attribution */
+  --fs-sm: 0.85rem;    /* UI text: buttons, tabs, body copy in cards/chat */
+  --fs-base: 1rem;     /* default reading size */
+  --fs-md: 1.15rem;    /* small subheads: gallery captions, h3-level */
+  --fs-lg: 1.7rem;     /* stat numbers */
+  --fs-xl: clamp(1.6rem, 3.4vw, 2.4rem);  /* pull quotes */
+  --fs-2xl: clamp(2rem, 5vw, 3.4rem);     /* section titles */
+  --fs-3xl: clamp(2.6rem, 7.5vw, 5.6rem); /* hero headline */
+
+  /* letter-spacing scale: named by role, not by trial and error */
+  --tracking-label: 0.32em;  /* kicker / eyebrow: the wide uppercase tag above a headline */
+  --tracking-wide: 0.08em;   /* nav links, tabs, small uppercase UI */
+  --tracking-normal: 0.03em; /* buttons, everyday small text */
+  --tracking-tight: -0.01em; /* large serif headlines */
 }
 
 *,*::before,*::after{ box-sizing: border-box; }
@@ -60,8 +77,8 @@ a:focus-visible, button:focus-visible{
 /* ---------- utility ---------- */
 .kicker{
   display:inline-block;
-  font-size: 0.72rem;
-  letter-spacing: 0.32em;
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 1rem;
@@ -85,11 +102,11 @@ a:focus-visible, button:focus-visible{
 }
 .section-title{
   font-size: clamp(2rem, 5vw, 3.4rem);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-tight);
 }
 .gallery-hint{
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   letter-spacing: 0.05em;
 }
 
@@ -204,7 +221,7 @@ a:focus-visible, button:focus-visible{
 }
 @media (min-width: 980px){ .nav-desktop{ display:flex; } }
 .nav-desktop a{
-  font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;
+  font-size:0.82rem; letter-spacing: var(--tracking-wide); text-transform:uppercase;
   color: var(--ivory); opacity:0.82;
   padding-bottom: 4px;
   position:relative;
@@ -304,14 +321,14 @@ a:focus-visible, button:focus-visible{
 }
 
 .eyebrow{
-  font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase;
+  font-size: var(--fs-2xs); letter-spacing: var(--tracking-label); text-transform:uppercase;
   color: var(--gold); margin-bottom: 1.8rem;
 }
 
 .hero-title{
   font-size: clamp(2.6rem, 7.5vw, 5.6rem);
   line-height: 1.05;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-tight);
   font-weight: 600;
   color: var(--ivory);
 }
@@ -343,7 +360,7 @@ a:focus-visible, button:focus-visible{
   display:inline-flex; align-items:center; justify-content:center;
   padding: 16px 30px;
   border-radius: 999px;
-  font-size:0.85rem; letter-spacing:0.05em;
+  font-size: var(--fs-sm); letter-spacing:0.05em;
   cursor:pointer;
   overflow:hidden;
   transition: transform .3s var(--ease), border-color .3s;
@@ -443,7 +460,7 @@ a:focus-visible, button:focus-visible{
 .cb-br{ bottom:14px; right:14px; border-width:0 1px 1px 0; }
 .frame-caption{
   margin-top:1rem; text-align:center;
-  font-size:0.72rem; letter-spacing:0.25em; text-transform:uppercase; color: var(--muted);
+  font-size:var(--fs-2xs); letter-spacing:0.25em; text-transform:uppercase; color: var(--muted);
 }
 
 .pull-quote{
@@ -466,7 +483,7 @@ a:focus-visible, button:focus-visible{
   flex-wrap:wrap;
 }
 .studio-stats strong{ display:block; font-family: var(--serif); font-size:1.7rem; color: var(--gold-light); }
-.studio-stats span{ font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--muted); }
+.studio-stats span{ font-size:var(--fs-2xs); letter-spacing:0.1em; text-transform:uppercase; color: var(--muted); }
 
 /* ==========================================================================
    TRADITIONAL WEDDING PACKAGE
@@ -499,7 +516,7 @@ a:focus-visible, button:focus-visible{
   border: 1px solid var(--line);
   padding: 0.55rem 1.2rem;
   border-radius: 999px;
-  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-size: var(--fs-2xs); letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--gold-light);
 }
 
@@ -516,7 +533,7 @@ a:focus-visible, button:focus-visible{
 }
 .tab{
   padding: 0 0 1.1rem;
-  font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase;
+  font-size: var(--fs-sm); letter-spacing: var(--tracking-wide); text-transform:uppercase;
   color: var(--muted); cursor:pointer;
   transition: color .3s;
 }
@@ -674,9 +691,13 @@ a:focus-visible, button:focus-visible{
   max-width: 640px; margin: 0 auto;
   text-align:center;
 }
+.more-services-title{
+  font-size: var(--fs-md);
+  margin-bottom: 1rem;
+}
 .more-services-text{
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: var(--fs-sm);
   margin: 0 0 1rem;
 }
 .more-services-link{
@@ -704,7 +725,7 @@ a:focus-visible, button:focus-visible{
 }
 .quote-mark{ width:32px; height:26px; fill: var(--gold); opacity:0.6; margin-bottom:1rem; }
 .review-card p{ font-family: var(--serif); font-style:italic; font-size:1.05rem; color: var(--ivory); margin-bottom:1.2rem; }
-.review-card footer{ font-size:0.78rem; letter-spacing:0.05em; color: var(--muted); }
+.review-card footer{ font-size: var(--fs-xs); letter-spacing:0.05em; color: var(--muted); }
 .review-card footer span{ color: var(--gold-light); }
 
 /* ==========================================================================
@@ -724,7 +745,7 @@ a:focus-visible, button:focus-visible{
   display:block;
   font-family: var(--serif); font-weight:700;
   font-size: clamp(2.4rem, 9vw, 5.2rem);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-tight);
   background: linear-gradient(100deg, var(--gold-soft), var(--gold-light) 50%, var(--gold));
   -webkit-background-clip:text; background-clip:text; color:transparent;
   margin: 0.6rem 0 1.4rem;
@@ -740,7 +761,7 @@ a:focus-visible, button:focus-visible{
 }
 @media (min-width: 700px){ .book-details{ grid-template-columns: repeat(3,1fr); } }
 .book-details h4{
-  font-family: var(--sans); font-size:0.72rem; letter-spacing:0.25em; text-transform:uppercase;
+  font-family: var(--sans); font-size:var(--fs-2xs); letter-spacing:0.25em; text-transform:uppercase;
   color: var(--gold); margin-bottom:0.7rem;
 }
 .book-details p{ color: var(--muted); font-size:0.92rem; }
@@ -754,7 +775,7 @@ a:focus-visible, button:focus-visible{
 .legal{ padding: 160px 6vw 6rem; }
 .legal-inner{ max-width: 720px; margin: 0 auto; }
 .legal .section-title{ font-size: clamp(1.8rem, 4vw, 2.6rem); }
-.legal-updated{ color: var(--muted); font-size:0.85rem; margin: 0.8rem 0 3rem; }
+.legal-updated{ color: var(--muted); font-size: var(--fs-sm); margin: 0.8rem 0 3rem; }
 .legal-body p{ color: var(--muted); margin-bottom: 1.3rem; max-width: 70ch; }
 .legal-body a{ color: var(--gold-light); text-decoration: underline; text-underline-offset:3px; }
 .legal-body h2{
@@ -788,7 +809,7 @@ a:focus-visible, button:focus-visible{
   max-width: var(--container); margin:0 auto;
   display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.8rem;
   padding-top: 1.8rem; border-top: 1px solid var(--line);
-  font-size:0.78rem; color: var(--muted); letter-spacing:0.03em;
+  font-size: var(--fs-xs); color: var(--muted); letter-spacing:0.03em;
 }
 .footer-phone a{ color: var(--gold-light); }
 .footer-legal{ display:flex; gap:1.2rem; }
@@ -814,7 +835,7 @@ a:focus-visible, button:focus-visible{
 .cookie-banner.is-visible{ transform: translateY(0); }
 .cookie-banner p{
   flex:1; min-width:220px;
-  font-size:0.85rem; color: var(--muted); line-height:1.5;
+  font-size: var(--fs-sm); color: var(--muted); line-height:1.5;
 }
 .cookie-banner p a{ color: var(--gold-light); text-decoration: underline; text-underline-offset:3px; }
 .cookie-banner .btn{ padding: 10px 20px; font-size:0.8rem; flex-shrink:0; }
@@ -886,7 +907,7 @@ body.cookie-open .chat-widget{ bottom:182px; }
 }
 .chat-avatar{ border-radius:50%; flex-shrink:0; }
 .chat-title{ font-family: var(--serif); font-size:0.95rem; color: var(--ivory); }
-.chat-status{ font-size:0.72rem; color: var(--muted); display:flex; align-items:center; gap:5px; }
+.chat-status{ font-size:var(--fs-2xs); color: var(--muted); display:flex; align-items:center; gap:5px; }
 .chat-status-dot{ width:6px; height:6px; border-radius:50%; background:#3ecf5f; display:inline-block; }
 
 .chat-messages{
@@ -899,7 +920,7 @@ body.cookie-open .chat-widget{ bottom:182px; }
   max-width: 84%;
   padding: 0.6rem 0.85rem;
   border-radius: 12px;
-  font-size:0.85rem; line-height:1.5;
+  font-size: var(--fs-sm); line-height:1.5;
 }
 .chat-msg--bot{
   align-self:flex-start;
@@ -938,7 +959,7 @@ body.cookie-open .chat-widget{ bottom:182px; }
   border-radius: 999px;
   padding: 0.6rem 0.9rem;
   color: var(--ivory);
-  font-family: var(--sans); font-size:0.85rem;
+  font-family: var(--sans); font-size: var(--fs-sm);
 }
 .chat-input-row input:focus-visible{ outline:1.5px solid var(--gold-light); outline-offset:1px; }
 .chat-input-row button{
