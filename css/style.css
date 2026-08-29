@@ -749,6 +749,22 @@ a:focus-visible, button:focus-visible{
 .socials a:hover{ color: var(--gold-light); }
 
 /* ==========================================================================
+   LEGAL PAGES (privacy, terms)
+   ========================================================================== */
+.legal{ padding: 160px 6vw 6rem; }
+.legal-inner{ max-width: 720px; margin: 0 auto; }
+.legal .section-title{ font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.legal-updated{ color: var(--muted); font-size:0.85rem; margin: 0.8rem 0 3rem; }
+.legal-body p{ color: var(--muted); margin-bottom: 1.3rem; max-width: 70ch; }
+.legal-body a{ color: var(--gold-light); text-decoration: underline; text-underline-offset:3px; }
+.legal-body h2{
+  font-size: 1.15rem; color: var(--ivory);
+  margin: 2.4rem 0 1rem;
+  padding-top: 1.6rem; border-top: 1px solid var(--line);
+}
+.legal-body h2:first-child{ margin-top:0; padding-top:0; border-top:none; }
+
+/* ==========================================================================
    FOOTER
    ========================================================================== */
 .site-footer{ padding: 4rem 6vw 2rem; border-top: 1px solid var(--line); }
@@ -775,6 +791,36 @@ a:focus-visible, button:focus-visible{
   font-size:0.78rem; color: var(--muted); letter-spacing:0.03em;
 }
 .footer-phone a{ color: var(--gold-light); }
+.footer-legal{ display:flex; gap:1.2rem; }
+.footer-legal a{ color: var(--muted); text-decoration: underline; text-underline-offset:3px; }
+.footer-legal a:hover{ color: var(--gold-light); }
+
+/* ==========================================================================
+   COOKIE CONSENT BANNER
+   ========================================================================== */
+.cookie-banner{
+  position: fixed; left:16px; right:16px; bottom:16px;
+  z-index: 300;
+  max-width: 640px; margin: 0 auto;
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  padding: 1.1rem 1.3rem;
+  background: var(--black-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transform: translateY(140%);
+  transition: transform .5s var(--ease);
+}
+.cookie-banner.is-visible{ transform: translateY(0); }
+.cookie-banner p{
+  flex:1; min-width:220px;
+  font-size:0.85rem; color: var(--muted); line-height:1.5;
+}
+.cookie-banner p a{ color: var(--gold-light); text-decoration: underline; text-underline-offset:3px; }
+.cookie-banner .btn{ padding: 10px 20px; font-size:0.8rem; flex-shrink:0; }
+@media (prefers-reduced-motion: reduce){
+  .cookie-banner{ transition:none; }
+}
 
 /* ==========================================================================
    SCROLL REVEALS (generic), scoped to .js per the safety-net note above

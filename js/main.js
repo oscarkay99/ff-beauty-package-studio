@@ -259,4 +259,21 @@
     }
   }
 
+  /* ---------------- Cookie consent banner ---------------- */
+  const cookieBanner = document.getElementById('cookieBanner');
+  const cookieAccept = document.getElementById('cookieAccept');
+  if (cookieBanner && cookieAccept) {
+    const CONSENT_KEY = 'ff_cookie_consent';
+    let alreadyAccepted = false;
+    try { alreadyAccepted = localStorage.getItem(CONSENT_KEY) === 'yes'; } catch (e) {}
+
+    if (!alreadyAccepted) {
+      setTimeout(() => cookieBanner.classList.add('is-visible'), 700);
+    }
+    cookieAccept.addEventListener('click', () => {
+      try { localStorage.setItem(CONSENT_KEY, 'yes'); } catch (e) {}
+      cookieBanner.classList.remove('is-visible');
+    });
+  }
+
 })();
