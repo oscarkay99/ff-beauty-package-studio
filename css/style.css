@@ -844,19 +844,39 @@ a:focus-visible, button:focus-visible{
 }
 
 /* ==========================================================================
+   FLOATING ACTION BUTTONS (shared label + circle pattern)
+   ========================================================================== */
+.fab-label{
+  background: var(--black-2);
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-normal);
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+}
+.fab-circle{
+  width:56px; height:56px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform .2s var(--ease), background .2s;
+}
+.fab-circle--whatsapp{ background:#25D366; color:#fff; }
+.fab-circle--chat{ background: var(--gold); color: var(--black); }
+
+/* ==========================================================================
    WHATSAPP CLICK-TO-CHAT
    ========================================================================== */
 .whatsapp-fab{
   position: fixed; right:20px; bottom:20px;
   z-index: 250;
-  width:56px; height:56px; border-radius:50%;
-  background: #25D366;
-  color:#fff;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  transition: bottom .4s var(--ease), transform .2s var(--ease);
+  display:flex; align-items:center; gap:0.6rem;
+  transition: bottom .4s var(--ease);
 }
-.whatsapp-fab:hover{ transform: translateY(-2px); }
+.whatsapp-fab:hover .fab-circle{ transform: translateY(-2px); }
 body.cookie-open .whatsapp-fab{ bottom:112px; }
 
 /* ==========================================================================
@@ -871,18 +891,14 @@ body.cookie-open .whatsapp-fab{ bottom:112px; }
 body.cookie-open .chat-widget{ bottom:182px; }
 
 .chat-launcher{
-  width:56px; height:56px; border-radius:50%;
-  background: var(--gold);
-  color: var(--black);
-  display:flex; align-items:center; justify-content:center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  transition: transform .2s var(--ease), background .2s;
+  display:flex; align-items:center; gap:0.6rem;
   position:relative; z-index:1;
 }
-.chat-launcher:hover{ transform: translateY(-2px); background: var(--gold-light); }
+.chat-launcher:hover .fab-circle{ transform: translateY(-2px); background: var(--gold-light); }
 .chat-launcher-icon--close{ display:none; }
 .chat-launcher[aria-expanded="true"] .chat-launcher-icon--open{ display:none; }
 .chat-launcher[aria-expanded="true"] .chat-launcher-icon--close{ display:block; }
+.chat-launcher[aria-expanded="true"] .fab-label{ display:none; }
 
 .chat-panel{
   position:absolute; right:0; bottom:70px;
