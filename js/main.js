@@ -259,6 +259,36 @@
     }
   }
 
+  /* ---------------- Appointment request form ----------------
+     No backend on this static site, so instead of "submitting" anywhere,
+     this builds a formatted message and hands it to WhatsApp, the studio's
+     actual booking channel. */
+  const appointmentForm = document.getElementById('appointmentForm');
+  if (appointmentForm) {
+    appointmentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(appointmentForm);
+      const name = (data.get('name') || '').toString().trim();
+      const phone = (data.get('phone') || '').toString().trim();
+      const service = (data.get('service') || '').toString().trim();
+      const date = (data.get('date') || '').toString().trim();
+      const notes = (data.get('notes') || '').toString().trim();
+
+      const lines = [
+        'Hi FF Beauty Package Studio, I would like to request an appointment.',
+        '',
+        `Name: ${name}`,
+        `Phone: ${phone}`,
+        `Service: ${service}`,
+        `Preferred date: ${date || 'Flexible'}`,
+      ];
+      if (notes) lines.push(`Notes: ${notes}`);
+
+      const message = encodeURIComponent(lines.join('\n'));
+      window.open(`https://wa.me/16144326449?text=${message}`, '_blank', 'noopener');
+    });
+  }
+
   /* ---------------- Cookie consent banner ---------------- */
   const cookieBanner = document.getElementById('cookieBanner');
   const cookieAccept = document.getElementById('cookieAccept');

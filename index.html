@@ -502,6 +502,68 @@
           </p>
         </div>
       </div>
+
+      <div class="book-form-wrap reveal-up">
+        <h3 class="book-form-title">Request an Appointment</h3>
+        <p class="book-form-sub">Fill this out and it sends straight to WhatsApp, no account or sign-up needed. Prefer to talk it through? Call <a href="tel:16144326449">614-432-6449</a> instead.</p>
+
+        <form class="book-form" id="appointmentForm">
+          <div class="book-form-row">
+            <label for="apptName">Full Name<span aria-hidden="true">*</span></label>
+            <input type="text" id="apptName" name="name" required autocomplete="name">
+          </div>
+          <div class="book-form-row">
+            <label for="apptPhone">Phone Number<span aria-hidden="true">*</span></label>
+            <input type="tel" id="apptPhone" name="phone" required autocomplete="tel">
+          </div>
+          <div class="book-form-row">
+            <label for="apptService">Service Interested In<span aria-hidden="true">*</span></label>
+            <select id="apptService" name="service" required>
+              <option value="" disabled selected>Choose a service&hellip;</option>
+              <optgroup label="Beauty Services">
+                <option>Skincare Products</option>
+                <option>Makeup: Regular, Glam &amp; Bridal</option>
+                <option>Eyebrow Shaping &amp; Waxing</option>
+                <option>Eyelashes</option>
+                <option>Hair Extensions, Sew-Ins &amp; Installations</option>
+                <option>Hair Treatments</option>
+                <option>Chemical Services</option>
+                <option>Color Services</option>
+                <option>Quick &amp; Short Weaves</option>
+                <option>Crochet Hairstyles</option>
+                <option>Twist Braids</option>
+                <option>Box Braids</option>
+              </optgroup>
+              <optgroup label="Locs &amp; Natural Hair Specialist">
+                <option>Silk Press</option>
+                <option>Starter Locs</option>
+                <option>Dread Locs</option>
+                <option>Instant Locs</option>
+                <option>Loc Repairs</option>
+                <option>Retwist &amp; Styles</option>
+                <option>Loc Detox</option>
+                <option>Sisterlocks</option>
+                <option>Conroll</option>
+              </optgroup>
+              <optgroup label="Traditional Wedding Package">
+                <option>Traditional Wedding / Ceremony Styling</option>
+              </optgroup>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="book-form-row">
+            <label for="apptDate">Preferred Date</label>
+            <input type="date" id="apptDate" name="date">
+          </div>
+          <div class="book-form-row book-form-row--full">
+            <label for="apptNotes">Anything else we should know?</label>
+            <textarea id="apptNotes" name="notes" rows="3" placeholder="Location if on-location/traditional wedding, hair length, inspiration photos you'll send, etc."></textarea>
+          </div>
+          <button type="submit" class="btn btn--gold book-form-submit">
+            <span>Send Request via WhatsApp</span>
+          </button>
+        </form>
+      </div>
     </div>
   </section>
 

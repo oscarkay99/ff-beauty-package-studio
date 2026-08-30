@@ -810,6 +810,61 @@ a:focus-visible, button:focus-visible{
 .socials a:hover{ color: var(--gold-light); }
 
 /* ==========================================================================
+   APPOINTMENT REQUEST FORM
+   ========================================================================== */
+.book-form-wrap{
+  margin-top: 3.5rem;
+  padding-top: 2.5rem; border-top: 1px solid var(--line);
+  text-align:left;
+}
+.book-form-title{
+  font-size: var(--fs-md);
+  color: var(--ivory);
+  text-align:center;
+  margin-bottom: 0.5rem;
+}
+.book-form-sub{
+  color: var(--muted); font-size: var(--fs-sm);
+  text-align:center; max-width: 48ch; margin: 0 auto 2rem;
+}
+.book-form-sub a{ color: var(--gold-light); text-decoration:underline; text-underline-offset:3px; }
+.book-form{
+  max-width: 620px; margin: 0 auto;
+  display:grid; grid-template-columns: 1fr 1fr; gap: 1.2rem 1.5rem;
+}
+.book-form-row{ display:flex; flex-direction:column; gap:0.5rem; }
+.book-form-row--full{ grid-column: 1 / -1; }
+.book-form label{
+  font-size: var(--fs-2xs); letter-spacing: 0.1em; text-transform:uppercase;
+  color: var(--gold);
+}
+.book-form label span{ color: var(--gold-light); margin-left:2px; }
+.book-form input,
+.book-form select,
+.book-form textarea{
+  background: var(--black);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+  color: var(--ivory);
+  font-family: var(--sans); font-size: var(--fs-sm);
+}
+.book-form textarea{ resize: vertical; min-height: 80px; }
+.book-form input:focus-visible,
+.book-form select:focus-visible,
+.book-form textarea:focus-visible{
+  outline: 1.5px solid var(--gold-light); outline-offset:1px;
+}
+.book-form-submit{
+  grid-column: 1 / -1;
+  justify-self:center;
+  margin-top: 0.5rem;
+}
+@media (max-width: 600px){
+  .book-form{ grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
    LEGAL PAGES (privacy, terms)
    ========================================================================== */
 .legal{ padding: 160px 6vw 6rem; }
@@ -923,12 +978,12 @@ body.cookie-open .whatsapp-fab{ bottom:112px; }
    CHAT ASSISTANT WIDGET
    ========================================================================== */
 .chat-widget{
-  position: fixed; right:20px; bottom:90px;
+  position: fixed; right:20px; bottom:186px;
   z-index: 250;
   display:flex; flex-direction:column; align-items:flex-end;
   transition: bottom .4s var(--ease);
 }
-body.cookie-open .chat-widget{ bottom:182px; }
+body.cookie-open .chat-widget{ bottom:278px; }
 
 .chat-launcher{
   display:flex; align-items:center; gap:0.6rem;
@@ -1029,9 +1084,9 @@ body.cookie-open .chat-widget{ bottom:182px; }
 
 @media (max-width: 480px){
   .whatsapp-fab{ right:14px; bottom:14px; }
-  .chat-widget{ right:14px; bottom:82px; }
+  .chat-widget{ right:14px; bottom:178px; }
   body.cookie-open .whatsapp-fab{ bottom: 168px; }
-  body.cookie-open .chat-widget{ bottom: 238px; }
+  body.cookie-open .chat-widget{ bottom: 334px; }
 }
 @media (prefers-reduced-motion: reduce){
   .whatsapp-fab, .chat-widget, .chat-panel{ transition:none; }
