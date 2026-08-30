@@ -966,13 +966,13 @@ a:focus-visible, button:focus-visible{
    WHATSAPP CLICK-TO-CHAT
    ========================================================================== */
 .whatsapp-fab{
-  position: fixed; right:20px; bottom:20px;
+  position: fixed; right:20px; bottom:116px;
   z-index: 250;
   display:flex; align-items:center; gap:0.6rem;
   transition: bottom .4s var(--ease);
 }
 .whatsapp-fab:hover .fab-circle{ transform: translateY(-2px); }
-body.cookie-open .whatsapp-fab{ bottom:112px; }
+body.cookie-open .whatsapp-fab{ bottom:208px; }
 
 /* ==========================================================================
    CHAT ASSISTANT WIDGET
@@ -1084,9 +1084,9 @@ body.cookie-open .chat-widget{ bottom:278px; }
 
 @media (max-width: 480px){
   .whatsapp-fab{ right:14px; bottom:14px; }
-  .chat-widget{ right:14px; bottom:178px; }
+  .chat-widget{ right:14px; bottom:82px; }
   body.cookie-open .whatsapp-fab{ bottom: 168px; }
-  body.cookie-open .chat-widget{ bottom: 334px; }
+  body.cookie-open .chat-widget{ bottom: 238px; }
 }
 @media (prefers-reduced-motion: reduce){
   .whatsapp-fab, .chat-widget, .chat-panel{ transition:none; }
