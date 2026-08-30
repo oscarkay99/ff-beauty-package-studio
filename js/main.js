@@ -302,7 +302,7 @@
       {
         label: 'Hours',
         match: /hour|open|time|when/i,
-        reply: `Tuesday through Saturday, with Sunday and Monday available by appointment. Call ${PHONE} to check availability.`,
+        reply: `Open every day, by appointment. Call ${PHONE} to check availability.`,
       },
       {
         label: 'Location',
