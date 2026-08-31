@@ -2,7 +2,6 @@
   'use strict';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ---------------- Preloader ---------------- */
   const preloader = document.getElementById('preloader');
@@ -18,31 +17,6 @@
     // safety fallback in case the load event is delayed; the CSS-only
     // forceHidePreloader animation is a second, independent backstop
     setTimeout(finishLoad, 2600);
-  }
-
-  /* ---------------- Custom cursor ---------------- */
-  if (isFinePointer && !reduceMotion) {
-    const dot = document.querySelector('.cursor-dot');
-    const ring = document.querySelector('.cursor-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-    });
-
-    const raf = () => {
-      rx += (mx - rx) * 0.16;
-      ry += (my - ry) * 0.16;
-      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
-
-    document.querySelectorAll('a, button, .service-list li, .gallery-card').forEach((el) => {
-      el.addEventListener('mouseenter', () => ring.classList.add('is-active'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
-    });
   }
 
   /* ---------------- Header scroll state ---------------- */
