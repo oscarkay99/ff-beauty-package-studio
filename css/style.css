@@ -964,26 +964,25 @@ a:focus-visible, button:focus-visible{
 
 /* ==========================================================================
    WHATSAPP CLICK-TO-CHAT
+   Lives inside .chat-widget (below the chat launcher) so it's always
+   locked directly beneath it, rather than two independently-positioned
+   fixed elements that can drift apart.
    ========================================================================== */
 .whatsapp-fab{
-  position: fixed; right:20px; bottom:116px;
-  z-index: 250;
   display:flex; align-items:center; gap:0.6rem;
-  transition: bottom .4s var(--ease);
 }
 .whatsapp-fab:hover .fab-circle{ transform: translateY(-2px); }
-body.cookie-open .whatsapp-fab{ bottom:208px; }
 
 /* ==========================================================================
    CHAT ASSISTANT WIDGET
    ========================================================================== */
 .chat-widget{
-  position: fixed; right:20px; bottom:186px;
+  position: fixed; right:20px; bottom:20px;
   z-index: 250;
-  display:flex; flex-direction:column; align-items:flex-end;
+  display:flex; flex-direction:column; align-items:flex-end; gap:14px;
   transition: bottom .4s var(--ease);
 }
-body.cookie-open .chat-widget{ bottom:278px; }
+body.cookie-open .chat-widget{ bottom:116px; }
 
 .chat-launcher{
   display:flex; align-items:center; gap:0.6rem;
@@ -996,7 +995,7 @@ body.cookie-open .chat-widget{ bottom:278px; }
 .chat-launcher[aria-expanded="true"] .fab-label{ display:none; }
 
 .chat-panel{
-  position:absolute; right:0; bottom:70px;
+  position:absolute; right:0; bottom:140px;
   width: min(340px, calc(100vw - 40px));
   max-height: min(480px, calc(100vh - 180px));
   display:flex; flex-direction:column;
@@ -1083,13 +1082,11 @@ body.cookie-open .chat-widget{ bottom:278px; }
 .chat-input-row button:hover{ background: var(--gold-light); }
 
 @media (max-width: 480px){
-  .whatsapp-fab{ right:14px; bottom:14px; }
-  .chat-widget{ right:14px; bottom:82px; }
-  body.cookie-open .whatsapp-fab{ bottom: 168px; }
-  body.cookie-open .chat-widget{ bottom: 238px; }
+  .chat-widget{ right:14px; bottom:14px; }
+  body.cookie-open .chat-widget{ bottom: 154px; }
 }
 @media (prefers-reduced-motion: reduce){
-  .whatsapp-fab, .chat-widget, .chat-panel{ transition:none; }
+  .chat-widget, .chat-panel{ transition:none; }
 }
 
 /* ==========================================================================
