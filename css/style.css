@@ -883,6 +883,7 @@ a:focus-visible, button:focus-visible{
   border: 1px solid var(--line);
   color: var(--ivory);
   font-size: var(--fs-xs);
+  font-weight: 600;
   letter-spacing: var(--tracking-normal);
   padding: 0.6rem 1.1rem;
   border-radius: 999px;
@@ -893,11 +894,10 @@ a:focus-visible, button:focus-visible{
   width:56px; height:56px; border-radius:50%;
   display:flex; align-items:center; justify-content:center;
   flex-shrink:0;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  transition: transform .2s var(--ease), background .2s;
+  transition: transform .2s var(--ease), background .2s, box-shadow .2s;
 }
-.fab-circle--whatsapp{ background:#25D366; color:#fff; }
-.fab-circle--chat{ background: var(--gold); color: var(--black); }
+.fab-circle--whatsapp{ background:#25D366; color:#fff; box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+.fab-circle--chat{ background: var(--gold); color: var(--black); box-shadow: 0 4px 20px rgba(201,162,39,0.45); }
 
 /* ==========================================================================
    WHATSAPP CLICK-TO-CHAT
