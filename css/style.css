@@ -914,12 +914,12 @@ a:focus-visible, button:focus-visible{
    CHAT ASSISTANT WIDGET
    ========================================================================== */
 .chat-widget{
-  position: fixed; right:20px; bottom:20px;
+  position: fixed; right:20px; bottom:116px;
   z-index: 250;
   display:flex; flex-direction:column; align-items:flex-end; gap:14px;
   transition: bottom .4s var(--ease);
 }
-body.cookie-open .chat-widget{ bottom:116px; }
+body.cookie-open .chat-widget{ bottom:212px; }
 
 .chat-launcher{
   display:flex; align-items:center; gap:0.6rem;
