@@ -372,7 +372,14 @@ a:focus-visible, button:focus-visible{
   color: var(--black);
   font-weight:500;
 }
-.btn--gold:hover{ transform: translateY(-2px); }
+.btn--gold::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%);
+  transform: translateX(-130%);
+  transition: transform .6s var(--ease);
+}
+.btn--gold:hover::before{ transform: translateX(130%); }
 .btn--ghost{
   border: 1px solid var(--line);
   color: var(--ivory);
@@ -599,30 +606,30 @@ a:focus-visible, button:focus-visible{
    RITUAL
    ========================================================================== */
 .ritual{ padding: clamp(4rem,10vw,7rem) 6vw; background: var(--black-2); }
-.ritual-track{
-  max-width: var(--container); margin:0 auto;
-  position:relative;
-  display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 2.5rem;
-  padding-top: 2rem;
+.ritual-list{
+  max-width: 860px; margin: 0 auto;
 }
-.ritual-line{ display:none; }
-@media (min-width: 900px){
-  .ritual-line{
-    display:block; position:absolute; top:1.2rem; left:0; width:100%; height:4px;
-    stroke: var(--line); stroke-width:1; fill:none;
-  }
+.ritual-row{
+  display:grid; grid-template-columns: 64px 1fr;
+  gap: 1.2rem;
+  align-items:baseline;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--line);
 }
-.ritual-step{ position:relative; text-align:left; }
+.ritual-row:first-child{ padding-top:0; }
+.ritual-row:last-child{ border-bottom:none; }
 .ritual-num{
-  display:block; font-family: var(--serif); font-style:italic;
-  font-size: 2.4rem;
+  font-family: var(--serif); font-style:italic;
+  font-size: 2.6rem; line-height:1;
   -webkit-text-stroke: 1px var(--gold);
   color: transparent;
-  margin-bottom:1rem;
 }
-.ritual-step h3{ font-size:1.15rem; margin-bottom:0.6rem; color: var(--ivory); }
-.ritual-step p{ color: var(--muted); font-size:0.92rem; max-width: 32ch; }
+.ritual-row-copy h3{ font-size:1.1rem; margin-bottom:0.4rem; color: var(--ivory); }
+.ritual-row-copy p{ color: var(--muted); font-size:0.95rem; max-width: 56ch; }
+@media (min-width: 700px){
+  .ritual-row{ grid-template-columns: 110px 1fr; gap:2rem; }
+  .ritual-num{ font-size: 3.2rem; }
+}
 
 /* ==========================================================================
    GALLERY
@@ -719,55 +726,19 @@ a:focus-visible, button:focus-visible{
   transition: transform .1s linear;
 }
 
-/* ==========================================================================
-   MORE SERVICES (text list for services without photos yet)
-   ========================================================================== */
-.more-services{
-  padding: 3rem 6vw;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: var(--black-2);
-}
-.more-services-inner{
-  max-width: 640px; margin: 0 auto;
-  text-align:center;
-}
-.more-services-title{
-  font-size: var(--fs-md);
-  margin-bottom: 1rem;
-}
-.more-services-text{
-  color: var(--muted);
-  font-size: var(--fs-sm);
-  margin: 0 0 1rem;
-}
-.more-services-link{
-  font-size: 0.82rem; letter-spacing: var(--tracking-normal);
-  color: var(--gold-light);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.more-services-link:hover{ color: var(--gold); }
 
 /* ==========================================================================
    REVIEWS
    ========================================================================== */
-.reviews{ padding: clamp(4rem,10vw,7rem) 6vw; background: var(--black-2); }
-.reviews-grid{
-  max-width: var(--container); margin:0 auto;
-  display:grid; grid-template-columns: 1fr; gap: 1.6rem;
+.reviews{ padding: clamp(4rem,10vw,7rem) 6vw; background: var(--black); }
+.review-featured{
+  max-width: 640px; margin:0 auto;
+  text-align:center;
 }
-@media (min-width: 860px){ .reviews-grid{ grid-template-columns: repeat(3,1fr); } }
-.review-card{
-  margin:0; padding: 2.2rem 1.9rem;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(201,162,39,0.03);
-}
-.quote-mark{ width:32px; height:26px; fill: var(--gold); opacity:0.6; margin-bottom:1rem; }
-.review-card p{ font-family: var(--serif); font-style:italic; font-size:1.05rem; color: var(--ivory); margin-bottom:1.2rem; }
-.review-card footer{ font-size: var(--fs-xs); letter-spacing: var(--tracking-normal); color: var(--muted); }
-.review-card footer span{ color: var(--gold-light); }
+.quote-mark{ display:block; width:36px; height:29px; fill: var(--gold); opacity:0.6; margin: 0 auto 1.2rem; }
+.review-featured p{ font-family: var(--serif); font-style:italic; font-size: clamp(1.15rem, 2vw, 1.4rem); color: var(--ivory); margin-bottom:1.2rem; line-height:1.5; }
+.review-featured footer{ font-size: var(--fs-xs); letter-spacing: var(--tracking-normal); color: var(--muted); }
+.review-featured footer span{ color: var(--gold-light); }
 
 /* ==========================================================================
    BOOK / CTA
@@ -1093,18 +1064,47 @@ body.cookie-open .chat-widget{ bottom:116px; }
 /* ==========================================================================
    SCROLL REVEALS (generic), scoped to .js per the safety-net note above
    ========================================================================== */
+/* Three distinct reveal treatments by content type, rather than one
+   fade-up applied uniformly to every element on the page. */
+
+/* default: a restrained fade with a short lift, for supporting text */
 .js .reveal-up{
-  opacity:0; transform: translateY(28px);
-  transition: opacity .8s var(--ease), transform .8s var(--ease);
+  opacity:0; transform: translateY(14px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
 }
 .js .reveal-up.is-in{ opacity:1; transform:none; }
+
+/* headings: a clip-path wipe, the same device the hero title uses,
+   reused deliberately as a signature motif rather than a generic fade */
+.js h2.reveal-up,
+.js .kicker.reveal-up{
+  opacity:1; transform:none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .9s var(--ease);
+}
+.js h2.reveal-up.is-in,
+.js .kicker.reveal-up.is-in{
+  clip-path: inset(0 0 0 0);
+}
+.js .kicker.reveal-up{ transition-delay: .05s; }
+
+/* photography: a slow scale-settle instead of a translate */
+.js .studio-frame.reveal-up,
+.js .tl-card.reveal-up{
+  opacity:0; transform: scale(1.05);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.js .studio-frame.reveal-up.is-in,
+.js .tl-card.reveal-up.is-in{
+  opacity:1; transform:none;
+}
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce){
   .marquee-track{ animation: none; }
   .scroll-cue-line{ animation:none; }
   .js .reveal-line span, .js .reveal-up, .service-list li{
-    transition: none !important; opacity:1 !important; transform:none !important;
+    transition: none !important; opacity:1 !important; transform:none !important; clip-path:none !important;
   }
   .js .preloader{ display:none !important; }
 }
