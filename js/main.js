@@ -293,11 +293,10 @@
   const chatMessages = document.getElementById('chatMessages');
   const chatForm = document.getElementById('chatForm');
   const chatInput = document.getElementById('chatInput');
-  const chatQuickReplies = document.getElementById('chatQuickReplies');
 
   const CHAT_API_URL = 'https://script.google.com/macros/s/AKfycbzY5QEp5MYoWT5RTu7cJbI0f9zA7GqUVHRXLlC8gPySHXXsS2nV9gjWEGYN7FOCYSQE/exec';
 
-  if (chatLauncher && chatPanel && chatMessages && chatForm && chatInput && chatQuickReplies) {
+  if (chatLauncher && chatPanel && chatMessages && chatForm && chatInput) {
     const PHONE = '614-432-6449';
     const QUICK_PROMPTS = [
       'What services do you offer?',
@@ -324,15 +323,21 @@
     };
 
     const renderQuickReplies = () => {
-      chatQuickReplies.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'chat-quick-replies';
       QUICK_PROMPTS.forEach((prompt) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'chat-chip';
         btn.textContent = prompt;
-        btn.addEventListener('click', () => sendMessage(prompt));
-        chatQuickReplies.appendChild(btn);
+        btn.addEventListener('click', () => {
+          wrap.remove();
+          sendMessage(prompt);
+        });
+        wrap.appendChild(btn);
       });
+      chatMessages.appendChild(wrap);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     };
 
     const sendMessage = async (text) => {
