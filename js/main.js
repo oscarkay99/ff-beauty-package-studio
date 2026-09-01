@@ -284,10 +284,10 @@
     });
   }
 
-  /* ---------------- Chat assistant widget (rule-based quick answers) ----------------
-     No backend exists on this static site, so this intentionally does not claim
-     to be an AI chatbot. It matches keywords against real site content and always
-     offers the phone/WhatsApp for anything it can't answer. */
+  /* ---------------- Chat assistant widget (Groq-powered) ----------------
+     Messages are sent to a Google Apps Script Web App, which holds the
+     Groq API key server-side and proxies the call. See
+     google-apps-script/README.md for the deployment steps. */
   const chatLauncher = document.getElementById('chatLauncher');
   const chatPanel = document.getElementById('chatPanel');
   const chatMessages = document.getElementById('chatMessages');
@@ -295,44 +295,24 @@
   const chatInput = document.getElementById('chatInput');
   const chatQuickReplies = document.getElementById('chatQuickReplies');
 
+  const CHAT_API_URL = 'https://script.google.com/macros/s/AKfycbzY5QEp5MYoWT5RTu7cJbI0f9zA7GqUVHRXLlC8gPySHXXsS2nV9gjWEGYN7FOCYSQE/exec';
+
   if (chatLauncher && chatPanel && chatMessages && chatForm && chatInput && chatQuickReplies) {
     const PHONE = '614-432-6449';
-    const TOPICS = [
-      {
-        label: 'Services & Pricing',
-        match: /service|price|cost|offer|menu/i,
-        reply: `We offer a full range of beauty services (makeup, lashes, brows, hair extensions, color, braids, and more) plus locs & natural hair specialties (Sisterlocks, starter locs, retwist, silk press). Pricing depends on your hair and the service, quoted at consultation. See the full list in Services, or call ${PHONE}.`,
-      },
-      {
-        label: 'Hours',
-        match: /hour|open|time|when/i,
-        reply: `Open every day, by appointment. Call ${PHONE} to check availability.`,
-      },
-      {
-        label: 'Location',
-        match: /location|address|where|columbus/i,
-        reply: `The studio is based in Columbus, Ohio. Call ${PHONE} for the exact address.`,
-      },
-      {
-        label: 'How Booking Works',
-        match: /book|appointment|schedule|reserve/i,
-        reply: `Appointments are booked by phone, call or text ${PHONE} to share what you're after and find a time.`,
-      },
-      {
-        label: 'Traditional Wedding Package',
-        match: /traditional|wedding|ceremony|kente|package/i,
-        reply: `For traditional weddings and ceremonies, hair, makeup, and traditional dress styling arrive as one seamless appointment, on-location and out-of-town appointments available. Call ${PHONE} to discuss your ceremony.`,
-      },
-      {
-        label: 'Sisterlocks',
-        match: /sisterlock|\bloc(s)?\b|dread/i,
-        reply: `Yes, Sisterlocks installs, retwists, starter locs, and loc detox are all part of the Locs & Natural Hair Specialist services. Call ${PHONE} for a consultation.`,
-      },
+    const QUICK_PROMPTS = [
+      'What services do you offer?',
+      'What are your hours?',
+      'Where are you located?',
+      'How do I book?',
+      'Tell me about the traditional wedding package',
+      'Do you do Sisterlocks?',
     ];
     const GREETING = "Hi! I'm here to help with quick questions about FF Beauty Package Studio. Ask about services, hours, location, or booking, or tap a topic below.";
-    const FALLBACK = `I'm just a quick-answers assistant, so I might not catch everything. For anything specific, call or WhatsApp us at ${PHONE} and we'll take great care of you.`;
+    const FALLBACK = `I'm having trouble reaching my brain right now. Call or WhatsApp us at ${PHONE} and we'll take great care of you.`;
 
     let isOpen = false;
+    let isSending = false;
+    let history = [];
 
     const addMessage = (text, from) => {
       const el = document.createElement('div');
@@ -340,24 +320,51 @@
       el.textContent = text;
       chatMessages.appendChild(el);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+      return el;
     };
 
     const renderQuickReplies = () => {
       chatQuickReplies.innerHTML = '';
-      TOPICS.forEach((topic) => {
+      QUICK_PROMPTS.forEach((prompt) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'chat-chip';
-        btn.textContent = topic.label;
-        btn.addEventListener('click', () => respondTo(topic.label, topic));
+        btn.textContent = prompt;
+        btn.addEventListener('click', () => sendMessage(prompt));
         chatQuickReplies.appendChild(btn);
       });
     };
 
-    const respondTo = (text, matchedTopic) => {
+    const sendMessage = async (text) => {
+      if (isSending) return;
+      isSending = true;
       addMessage(text, 'user');
-      const topic = matchedTopic || TOPICS.find((t) => t.match.test(text));
-      setTimeout(() => addMessage(topic ? topic.reply : FALLBACK, 'bot'), 350);
+      const typingEl = addMessage('...', 'bot');
+
+      if (!CHAT_API_URL || CHAT_API_URL.indexOf('PASTE_') === 0) {
+        typingEl.textContent = FALLBACK;
+        isSending = false;
+        return;
+      }
+
+      try {
+        const res = await fetch(CHAT_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ message: text, history }),
+        });
+        const data = await res.json();
+        const reply = data.reply || FALLBACK;
+        typingEl.textContent = reply;
+        history.push({ role: 'user', content: text });
+        history.push({ role: 'assistant', content: reply });
+        history = history.slice(-8);
+      } catch (err) {
+        typingEl.textContent = FALLBACK;
+      } finally {
+        isSending = false;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
     };
 
     chatLauncher.addEventListener('click', () => {
@@ -375,8 +382,8 @@
     chatForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const val = chatInput.value.trim();
-      if (!val) return;
-      respondTo(val);
+      if (!val || isSending) return;
+      sendMessage(val);
       chatInput.value = '';
     });
   }
