@@ -24,6 +24,16 @@ check_header "X-Content-Type-Options"
 check_header "X-Frame-Options"
 check_header "Referrer-Policy"
 
+if grep -qi '^Server:.*[/][0-9]' "$audit_dir/headers.txt"; then
+  echo "FAIL: server version is exposed" >&2
+  exit 1
+fi
+
+if ! grep -qi "^Content-Security-Policy:.*object-src 'none'" "$audit_dir/headers.txt"; then
+  echo "FAIL: CSP does not block plugin/object content" >&2
+  exit 1
+fi
+
 if ! grep -q "FF Beauty Package Studio" "$audit_dir/home.html"; then
   echo "FAIL: homepage content marker missing" >&2
   exit 1
@@ -38,6 +48,12 @@ fi
 post_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST "$site_url/")"
 if [ "$post_status" != "403" ] && [ "$post_status" != "405" ]; then
   echo "FAIL: static origin accepted POST (status $post_status)" >&2
+  exit 1
+fi
+
+dotfile_status="$(curl -sS -o /dev/null -w '%{http_code}' "$site_url/.env")"
+if [ "$dotfile_status" != "403" ] && [ "$dotfile_status" != "404" ]; then
+  echo "FAIL: dotfile request was not blocked (status $dotfile_status)" >&2
   exit 1
 fi
 

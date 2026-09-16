@@ -33,9 +33,9 @@ Status values: PASS, PARTIAL, MANUAL, N/A.
 | INF-01 | P0 | HTTPS with valid automatic renewal | PASS | Let's Encrypt certificate; `certbot.timer` active |
 | INF-02 | P0 | Firewall deny-by-default | PASS | UFW active; inbound limited to SSH, HTTP, HTTPS |
 | INF-03 | P0 | SSH passwords disabled | PASS | `PasswordAuthentication no`; key authentication enabled |
-| INF-04 | P1 | Dedicated non-root deployment user | PARTIAL | Root uses key-only login; create and test a limited deploy user before disabling root |
+| INF-04 | P1 | Dedicated non-root deployment user | PARTIAL | Root is key-only, but 17 authorized root keys serve several projects; owners must review/revoke stale keys before access is redesigned |
 | INF-05 | P1 | Browser security headers | PASS | CSP, HSTS, Permissions-Policy, COOP, anti-framing, MIME-sniffing, and referrer controls verified live |
-| INF-06 | P1 | OS security updates | PARTIAL | Automatic update timer exists; pending packages require reviewed maintenance |
+| INF-06 | P1 | OS security updates | PARTIAL | Unattended upgrades are enabled; the shared server currently requires a reviewed reboot maintenance window |
 | INF-07 | P1 | Web files owned by a known server account | PASS | Webroot normalized to `root:root`, directories 755, files 644 |
 | INF-08 | P1 | Restore procedure tested | PASS | Clean server-side clone of production source verified at commit `dbba2d1` |
 | APP-01 | P0 | Secrets excluded from source and browser | PASS | Groq key is read from Apps Script Properties |
