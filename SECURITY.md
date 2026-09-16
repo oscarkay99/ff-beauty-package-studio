@@ -54,7 +54,7 @@ Status values: PASS, PARTIAL, MANUAL, N/A.
 | OPS-02 | P1 | Groq spending/quota alerts | MANUAL | Configure in provider account if available |
 | OPS-03 | P1 | Uptime and security-baseline monitoring | PASS | Scheduled GitHub workflow checks the public site twice hourly |
 | OPS-04 | P1 | Incident contacts and key-rotation steps | MANUAL | Record owner/contact and test the API-key rotation procedure |
-| OPS-05 | P1 | Protected production deployment flow | PARTIAL | Secret scanning, push protection, vulnerability alerts, and Dependabot security updates enabled; branch remains unprotected |
+| OPS-05 | P1 | Protected production deployment flow | PASS | Main blocks force-push/deletion and requires reviewed PRs for non-admins; secret scanning, push protection, vulnerability alerts, and Dependabot security updates enabled |
 | AUTH-01 | — | Customer authentication and authorization | N/A | No customer accounts or protected user data routes |
 | DB-01 | — | Application database/RLS/migrations | N/A | No application database; Google Sheet is an internal chat log only |
 | PAY-01 | — | Payment and webhook security | N/A | No online payments or payment webhooks |
