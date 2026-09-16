@@ -37,7 +37,7 @@ Status values: PASS, PARTIAL, MANUAL, N/A.
 | INF-05 | P1 | Browser security headers | PASS | CSP, HSTS, Permissions-Policy, COOP, anti-framing, MIME-sniffing, and referrer controls verified live |
 | INF-06 | P1 | OS security updates | PARTIAL | Automatic update timer exists; pending packages require reviewed maintenance |
 | INF-07 | P1 | Web files owned by a known server account | PASS | Webroot normalized to `root:root`, directories 755, files 644 |
-| INF-08 | P1 | Restore procedure tested | PARTIAL | GitHub is the source backup; document and test a clean-server restore |
+| INF-08 | P1 | Restore procedure tested | PASS | Clean server-side clone of production source verified at commit `dbba2d1` |
 | APP-01 | P0 | Secrets excluded from source and browser | PASS | Groq key is read from Apps Script Properties |
 | APP-02 | P0 | Server-side request and message limits | PASS* | Implemented locally; deploy a new Apps Script version |
 | APP-03 | P0 | Conversation roles allowlisted | PASS* | Only `user` and `assistant` history roles accepted; deploy required |
@@ -52,9 +52,9 @@ Status values: PASS, PARTIAL, MANUAL, N/A.
 | PRIV-04 | P1 | Client media permission records retained | MANUAL | Keep evidence of consent and honor removal requests |
 | OPS-01 | P0 | MFA on GitHub, Google, hosting, and domain accounts | MANUAL | Account owners must verify |
 | OPS-02 | P1 | Groq spending/quota alerts | MANUAL | Configure in provider account if available |
-| OPS-03 | P1 | Uptime and certificate-expiry monitoring | MANUAL | Configure an external monitor and alert destination |
+| OPS-03 | P1 | Uptime and security-baseline monitoring | PASS | Scheduled GitHub workflow checks the public site twice hourly |
 | OPS-04 | P1 | Incident contacts and key-rotation steps | MANUAL | Record owner/contact and test the API-key rotation procedure |
-| OPS-05 | P1 | Protected production deployment flow | PARTIAL | Git history exists; add branch protection and limited deploy credentials |
+| OPS-05 | P1 | Protected production deployment flow | PARTIAL | Secret scanning, push protection, vulnerability alerts, and Dependabot security updates enabled; branch remains unprotected |
 | AUTH-01 | — | Customer authentication and authorization | N/A | No customer accounts or protected user data routes |
 | DB-01 | — | Application database/RLS/migrations | N/A | No application database; Google Sheet is an internal chat log only |
 | PAY-01 | — | Payment and webhook security | N/A | No online payments or payment webhooks |
