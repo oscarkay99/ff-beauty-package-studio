@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>document.documentElement.classList.add('js');</script>
+<script src="js/init.js"></script>
 <title>Privacy Policy | FF Beauty Package Studio</title>
 <meta name="description" content="Privacy Policy for FF Beauty Package Studio.">
 <meta name="robots" content="noindex">
@@ -36,23 +36,27 @@
   <div class="legal-inner">
     <span class="kicker reveal-up">Legal</span>
     <h1 class="section-title reveal-up">Privacy Policy</h1>
-    <p class="legal-updated reveal-up">Last updated: August 29, 2026</p>
+    <p class="legal-updated reveal-up">Last updated: September 16, 2026</p>
 
     <div class="legal-body reveal-up">
       <p>FF Beauty Package Studio ("we," "our," or "the studio") operates this website to share information about our services, showcase our work, and make it easy to reach us. This page explains what happens to your information when you visit.</p>
 
       <h2>The short version</h2>
-      <p>This website does not have sign-ups, accounts, online payments, or contact forms. It doesn't run analytics or advertising trackers. The only thing stored in your browser is a small preference so we don't show you the cookie notice twice.</p>
+      <p>This website does not have sign-ups, accounts, or online payments, and it does not run analytics or advertising trackers. It includes an appointment-request form that opens WhatsApp and an assistant that can answer questions about the studio. Chat messages and responses may be logged as described below.</p>
 
       <h2>Information We Collect</h2>
-      <p>We do not collect personal information through this website. There is nothing to fill out and submit. If you call the phone number listed on this site, that call is handled by your phone carrier and is not something this website collects or stores.</p>
+      <p>The appointment-request form collects the details you enter, such as your name, phone number, requested service, preferred date, and notes, only in your browser. Submitting the form opens WhatsApp with those details prepared for you to review and send. The website does not store the appointment form itself.</p>
+      <p>If you use the assistant, your message, the assistant's response, and the time of the exchange may be recorded in a private Google Sheet operated by the studio. Messages are processed through Google Apps Script and an external AI service to generate a response. Do not enter payment card details, passwords, government identification numbers, medical information, or other sensitive information in the chat.</p>
 
       <h2>Cookies &amp; Local Storage</h2>
       <p>This site uses your browser's local storage for one purpose: remembering that you've seen and dismissed the cookie notice. It does not use tracking cookies, advertising cookies, or analytics cookies. You can clear this at any time through your browser's settings, and the notice will simply appear again on your next visit.</p>
       <p>This site loads typefaces from Google Fonts (fonts.googleapis.com and fonts.gstatic.com). Loading a font, like loading any resource from a server, means your browser makes a request that includes standard technical information such as your IP address. This is handled by Google under its own privacy policy, not by us.</p>
 
       <h2>Third-Party Links</h2>
-      <p>This site links out to Instagram, Facebook, and Sisterlocks' official website. Once you click through, you're on their platform and subject to their own privacy practices, which we don't control.</p>
+      <p>This site uses or links to third-party services including Google Fonts, Google Apps Script, Google Sheets, the chat service provider, WhatsApp, Instagram, TikTok, and Facebook. Those providers may process standard technical information, chat content, or information you choose to send under their own privacy terms.</p>
+
+      <h2>Chat Records</h2>
+      <p>Chat records are used to answer questions, troubleshoot the assistant, prevent abuse, and improve customer service. Access should be limited to the studio and people who maintain the service. To ask about or request deletion of a chat record, contact the studio using the number below and provide enough detail to identify the conversation.</p>
 
       <h2>Photos on This Site</h2>
       <p>Photos and video featured in the gallery and elsewhere on this site are of real clients, used with their permission to showcase our work. If you're a client and would like a photo of you removed, contact us using the information below and we'll take care of it.</p>
@@ -94,7 +98,7 @@
     </div>
     <div class="chat-messages" id="chatMessages"></div>
     <form class="chat-input-row" id="chatForm">
-      <input type="text" id="chatInput" placeholder="Ask a question&hellip;" autocomplete="off" aria-label="Type your question">
+      <input type="text" id="chatInput" maxlength="500" placeholder="Ask a question&hellip;" autocomplete="off" aria-label="Type your question">
       <button type="submit" aria-label="Send">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
       </button>

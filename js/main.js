@@ -306,7 +306,7 @@
       'Tell me about the traditional wedding package',
       'Do you do Sisterlocks?',
     ];
-    const GREETING = "Hi! I'm here to help with quick questions about FF Beauty Package Studio. Ask about services, hours, location, or booking, or tap a topic below.";
+    const GREETING = "Hi! I'm here to help with quick questions about FF Beauty Package Studio. Chats may be logged to improve service, so please don't share payment, medical, or other sensitive information.";
     const FALLBACK = `I'm having trouble reaching my brain right now. Call or WhatsApp us at ${PHONE} and we'll take great care of you.`;
 
     let isOpen = false;
@@ -342,6 +342,8 @@
 
     const sendMessage = async (text) => {
       if (isSending) return;
+      text = text.trim().slice(0, 500);
+      if (!text) return;
       isSending = true;
       addMessage(text, 'user');
       const typingEl = addMessage('...', 'bot');
@@ -359,11 +361,11 @@
           body: JSON.stringify({ message: text, history }),
         });
         const data = await res.json();
-        const reply = data.reply || FALLBACK;
+        const reply = data.reply || data.error || FALLBACK;
         typingEl.textContent = reply;
         history.push({ role: 'user', content: text });
         history.push({ role: 'assistant', content: reply });
-        history = history.slice(-8);
+        history = history.slice(-6);
       } catch (err) {
         typingEl.textContent = FALLBACK;
       } finally {

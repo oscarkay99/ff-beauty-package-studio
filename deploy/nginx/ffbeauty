@@ -1,0 +1,42 @@
+server {
+    server_name ffbeauty1.com www.ffbeauty1.com;
+
+    root /opt/ffbeauty/html;
+    index index.html;
+    server_tokens off;
+    client_max_body_size 1m;
+
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; frame-ancestors 'self'; manifest-src 'self'; upgrade-insecure-requests" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" always;
+    add_header Cross-Origin-Opener-Policy "same-origin" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header X-Permitted-Cross-Domain-Policies "none" always;
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location / {
+        limit_except GET HEAD { deny all; }
+        try_files $uri $uri.html $uri/ =404;
+    }
+
+    listen [::]:443 ssl;
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/ffbeauty1.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ffbeauty1.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ffbeauty1.com www.ffbeauty1.com;
+    return 301 https://$host$request_uri;
+}
