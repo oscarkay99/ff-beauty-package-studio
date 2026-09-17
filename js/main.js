@@ -166,6 +166,8 @@
   /* ---------------- Gallery drag-to-scroll + progress ---------------- */
   const galleryTrack = document.getElementById('galleryTrack');
   const galleryProgressBar = document.getElementById('galleryProgressBar');
+  const galleryPrev = document.getElementById('galleryPrev');
+  const galleryNext = document.getElementById('galleryNext');
   if (galleryTrack) {
     let isDown = false, startX = 0, scrollStart = 0;
 
@@ -190,8 +192,24 @@
         galleryProgressBar.style.transform = `translateX(0)`;
         galleryProgressBar.style.width = Math.max(pct, 8) + '%';
       }
+      if (galleryPrev) galleryPrev.disabled = galleryTrack.scrollLeft <= 4;
+      if (galleryNext) galleryNext.disabled = galleryTrack.scrollLeft >= max - 4;
     };
+
+    const scrollGallery = (direction) => {
+      const firstCard = galleryTrack.querySelector('.gallery-card');
+      const gap = parseFloat(getComputedStyle(galleryTrack).gap) || 0;
+      const distance = firstCard ? firstCard.getBoundingClientRect().width + gap : galleryTrack.clientWidth * 0.8;
+      galleryTrack.scrollBy({
+        left: distance * direction,
+        behavior: reduceMotion ? 'auto' : 'smooth'
+      });
+    };
+
+    galleryPrev?.addEventListener('click', () => scrollGallery(-1));
+    galleryNext?.addEventListener('click', () => scrollGallery(1));
     galleryTrack.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
     updateProgress();
   }
 
