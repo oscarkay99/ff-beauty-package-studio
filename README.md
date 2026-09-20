@@ -18,7 +18,7 @@ Search the codebase for these placeholders and replace them with real info:
 
 - **Hours**: `index.html`, `#book` section (`[Insert Hours]`)
 - **Address**: `index.html`, `#book` section (`[Insert Studio Address]`)
-- **Instagram / Facebook links**: `index.html`, `#book` section (`href="#"` on the social links)
+- **Instagram link**: `index.html`, `#book` section
 - **Client reviews**: `index.html`, `#reviews` section. Three placeholder quote cards are ready. Replace the bracketed text with real client quotes and names.
 
 ## Current media status
