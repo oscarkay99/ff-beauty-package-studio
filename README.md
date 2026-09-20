@@ -26,7 +26,7 @@ Search the codebase for these placeholders and replace them with real info:
 Real photos and one video from the studio are wired in:
 
 - **Studio panel** and **Package section**: real photos (`assets/images/studio-bridal-updo.webp`, `assets/images/traditional-dressing-kente.webp`)
-- **Gallery**: real photos and lazy-loaded, autoplaying videos covering the studio's core services, including dreadlocks. A separate Sisterlocks photo still needs to be added.
+- **Gallery**: real photos and lazy-loaded, autoplaying videos covering the studio's core services, including separate Sisterlocks and dreadlocks examples.
 
 The full set of supplied photos lives in `assets/images/` as the original `WhatsApp Image...` files. A curated, compressed subset (clean filenames, WebP) is what the site actually uses. The four multi-photo collage images were cropped down into individual clean shots rather than used as-is (a collage grid with white gutters reads as a screenshot, not photography). One supplied photo (a lash-application close-up) was left out because it carries a visible third-party watermark ("AMG") in the frame; it's still in the folder if the rights to use it are confirmed.
 
