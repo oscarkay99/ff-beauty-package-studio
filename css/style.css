@@ -769,7 +769,7 @@ a:focus-visible, button:focus-visible{
   padding-top: 2.5rem; border-top: 1px solid var(--line);
   text-align:left;
 }
-@media (min-width: 700px){ .book-details{ grid-template-columns: repeat(3,1fr); } }
+@media (min-width: 700px){ .book-details{ grid-template-columns: repeat(2,1fr); } }
 .book-details h4{
   font-family: var(--sans); font-size:var(--fs-2xs); letter-spacing: var(--tracking-label); text-transform:uppercase;
   color: var(--gold); margin-bottom:0.7rem;
